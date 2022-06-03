@@ -7,14 +7,14 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-// 创建一个 JWT 结构体
+// CreateMyJWT 创建一个 JWT 结构体
 func CreateMyJWT(JwtTokenSignKey string) *JwtSign {
 	return &JwtSign{
 		[]byte(JwtTokenSignKey),
 	}
 }
 
-// 定义一个 JWT验签 结构体
+// JwtSign 定义一个 JWT验签 结构体
 type JwtSign struct {
 	SigningKey []byte
 }
@@ -27,7 +27,7 @@ func (j *JwtSign) CreateToken(claims CustomClaims) (string, error) {
 	return token.SignedString(j.SigningKey)
 }
 
-// 解析Token (只验证格式并不验证过期)
+// ParseToken 解析Token (只验证格式并不验证过期)
 func (j *JwtSign) ParseToken(tokenString string) (*CustomClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return j.SigningKey, nil
@@ -58,7 +58,7 @@ labelHere:
 	}
 }
 
-// 更新token有效期为最终存活时间
+// RefreshToken 更新token有效期为最终存活时间
 func (j *JwtSign) RefreshToken(tokenString string, extraAddSeconds int64) (string, error) {
 	if customClaims, err := j.ParseToken(tokenString); err == nil {
 		customClaims.ExpiresAt = jwt.NewNumericDate(time.Unix(extraAddSeconds, 0))

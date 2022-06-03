@@ -7,8 +7,8 @@ const (
 	DefaultEncryptKey = "1234567890m1234567890z1234567890"
 )
 
+// Token 错误信息
 const (
-	// Token 错误信息
 	ErrorsParseTokenFail string = "Token 解析失败"
 	ErrorsTokenInvalid   string = "Token 无效"
 	ErrTokenNotValidYet  string = "Token 未激活"
@@ -16,7 +16,7 @@ const (
 )
 
 const (
-	JwtTokenOK          = 1     //token有效
-	JwtTokenInvalid int = -iota //token无效
-	JwtTokenExpired             //token过期
+	JwtTokenOK          = 1     // token有效
+	JwtTokenInvalid int = -iota // token无效
+	JwtTokenExpired             // token过期
 )
